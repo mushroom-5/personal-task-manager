@@ -1,126 +1,355 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Add Task</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Task | Task Center</title>
 
     <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #0b1120;
+            color: #e5e7eb;
+            min-height: 100vh;
             padding: 30px;
         }
 
         .container {
-            max-width: 600px;
+            max-width: 700px;
             margin: auto;
-            background: white;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .system-name {
+            font-family: Consolas, monospace;
+            color: #60a5fa;
+            font-size: 12px;
+            letter-spacing: 2px;
+        }
+
+        .online {
+            font-size: 11px;
+            color: #22c55e;
+            font-family: Consolas, monospace;
+        }
+
+        .form-panel {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .panel-header {
             padding: 25px;
-            border-radius: 8px;
+            border-bottom: 1px solid #1f2937;
+            background: #0f172a;
+        }
+
+        .panel-label {
+            color: #60a5fa;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
         }
 
         h1 {
-            text-align: center;
+            color: white;
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .form-content {
+            padding: 25px;
         }
 
         label {
             display: block;
-            margin-top: 15px;
-            margin-bottom: 5px;
+            margin-bottom: 7px;
+            margin-top: 18px;
+            color: #cbd5e1;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        label:first-child {
+            margin-top: 0;
         }
 
         input,
         textarea,
         select {
             width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
+            padding: 12px 14px;
+            background: #0b1120;
+            border: 1px solid #334155;
+            border-radius: 7px;
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #475569;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #2563eb;
         }
 
         textarea {
-            height: 120px;
+            height: 130px;
+            resize: vertical;
         }
 
-        button {
-            margin-top: 20px;
-            padding: 10px 15px;
-            background-color: #198754;
+        select option {
+            background: #111827;
             color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .back-button {
-            display: inline-block;
-            margin-top: 15px;
-            text-decoration: none;
         }
 
         .error {
-            background-color: #f8d7da;
-            padding: 10px;
-            margin-bottom: 15px;
+            background: #2a1215;
+            border: 1px solid #991b1b;
+            color: #fca5a5;
+            padding: 14px;
+            border-radius: 7px;
+            margin-bottom: 20px;
         }
+
+        .error ul {
+            padding-left: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .save-button,
+        .cancel-button {
+            flex: 1;
+            padding: 12px;
+            border-radius: 7px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .save-button {
+            background: #2563eb;
+            border: 1px solid #3b82f6;
+            color: white;
+        }
+
+        .save-button:hover {
+            background: #1d4ed8;
+        }
+
+        .cancel-button {
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: #cbd5e1;
+        }
+
+        .cancel-button:hover {
+            background: #334155;
+        }
+
+        .footer {
+            text-align: center;
+            padding-top: 20px;
+            color: #475569;
+            font-size: 11px;
+            font-family: Consolas, monospace;
+        }
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+        }
+
     </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-    <h1>Add Task</h1>
+    <div class="topbar">
 
-    @if ($errors->any())
-        <div class="error">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+        <div class="system-name">
+            TASK CENTER / NEW RECORD
         </div>
-    @endif
 
-    <form action="{{ route('tasks.store') }}" method="POST">
+        <div class="online">
+            ● ONLINE
+        </div>
 
-        @csrf
+    </div>
 
-        <label>Task Name</label>
-        <input
-            type="text"
-            name="task_name"
-            value="{{ old('task_name') }}"
-            required
-        >
 
-        <label>Description</label>
-        <textarea
-            name="description"
-            required
-        >{{ old('description') }}</textarea>
+    <div class="form-panel">
 
-        <label>Status</label>
-        <select name="status" required>
-            <option value="Pending">Pending</option>
-            <option value="Completed">Completed</option>
-        </select>
+        <div class="panel-header">
 
-        <label>Due Date</label>
-        <input
-            type="date"
-            name="due_date"
-            value="{{ old('due_date') }}"
-            required
-        >
+            <div class="panel-label">
+                Task Management
+            </div>
 
-        <button type="submit">
-            Save Task
-        </button>
+            <h1>Create New Task</h1>
 
-    </form>
+            <p class="subtitle">
+                Add a new task to your personal task database.
+            </p>
 
-    <a href="{{ route('tasks.index') }}" class="back-button">
-        ← Back to Tasks
-    </a>
+        </div>
+
+
+        <div class="form-content">
+
+            @if ($errors->any())
+
+                <div class="error">
+
+                    <ul>
+
+                        @foreach ($errors->all() as $error)
+
+                            <li>{{ $error }}</li>
+
+                        @endforeach
+
+                    </ul>
+
+                </div>
+
+            @endif
+
+
+            <form action="{{ route('tasks.store') }}" method="POST">
+
+                @csrf
+
+
+                <label for="task_name">
+                    Task Name
+                </label>
+
+                <input
+                    type="text"
+                    id="task_name"
+                    name="task_name"
+                    value="{{ old('task_name') }}"
+                    placeholder="Enter task name"
+                    required
+                >
+
+
+                <label for="description">
+                    Description
+                </label>
+
+                <textarea
+                    id="description"
+                    name="description"
+                    placeholder="Enter task details..."
+                    required
+                >{{ old('description') }}</textarea>
+
+
+                <label for="status">
+                    Status
+                </label>
+
+                <select id="status" name="status" required>
+
+                    <option value="Pending"
+                        {{ old('status', 'Pending') == 'Pending' ? 'selected' : '' }}>
+                        Pending
+                    </option>
+
+                    <option value="Completed"
+                        {{ old('status') == 'Completed' ? 'selected' : '' }}>
+                        Completed
+                    </option>
+
+                </select>
+
+
+                <label for="due_date">
+                    Due Date
+                </label>
+
+                <input
+                    type="date"
+                    id="due_date"
+                    name="due_date"
+                    value="{{ old('due_date') }}"
+                    required
+                >
+
+
+                <div class="buttons">
+
+                    <button type="submit" class="save-button">
+                        + Save Task
+                    </button>
+
+                    <a
+                        href="{{ route('tasks.index') }}"
+                        class="cancel-button"
+                    >
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+        PERSONAL TASK MANAGER // CREATE MODULE
+    </div>
 
 </div>
 

@@ -47,18 +47,23 @@ Each task contains:
 ## Laravel Components
 
 ### Routes
+
 The project uses Laravel routes to connect URLs to the Task Controller.
 
 ### Controller
+
 `TaskController` handles adding, viewing, editing, updating, and deleting tasks.
 
 ### Model
+
 The `Task` model uses Laravel Eloquent to communicate with the MySQL database.
 
 ### Database
+
 The project uses MySQL with a database named `personal_task_manager`.
 
 ### Blade Views
+
 The project contains:
 
 - `index.blade.php`
@@ -77,10 +82,9 @@ The project contains:
 
 ## How to Run
 
-1. Start MySQL in XAMPP.
-2. Open the project in VS Code.
-3. Open the terminal.
-4. Run:
+### 1. Clone the Repository
+
+Clone the project from GitHub:
 
 ```bash
-php artisan serve
+git clone https://github.com/mushroom-5/personal-task-manager.git
