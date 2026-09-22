@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Edit Task | Task Center</title>
+    <title>Edit Task | Personal Task Manager</title>
 
     <style>
-
         * {
             box-sizing: border-box;
             margin: 0;
@@ -16,337 +14,655 @@
         }
 
         body {
-            font-family: "Segoe UI", Arial, sans-serif;
-            background: #0b1120;
-            color: #e5e7eb;
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                linear-gradient(rgba(31, 52, 35, 0.82), rgba(31, 52, 35, 0.82)),
+                url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=2000&q=80");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #263126;
             min-height: 100vh;
-            padding: 30px;
         }
 
-        .container {
-            max-width: 700px;
-            margin: auto;
+        .app {
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 240px;
+            background: rgba(28, 47, 32, 0.96);
+            color: white;
+            padding: 28px 18px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 12px 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #71844a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .brand h2 {
+            font-size: 18px;
+        }
+
+        .brand p {
+            font-size: 11px;
+            color: #c7d0c4;
+            margin-top: 4px;
+        }
+
+        .navigation {
+            margin-top: 30px;
+        }
+
+        .navigation a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: #e8eee5;
+            text-decoration: none;
+            padding: 14px;
+            margin-bottom: 8px;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .navigation a:hover,
+        .navigation a.active {
+            background: #566c37;
+        }
+
+        .nav-icon {
+            width: 22px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .sidebar-bottom {
+            position: absolute;
+            bottom: 35px;
+            left: 30px;
+            right: 30px;
+            color: #cdd6c9;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        /* MAIN */
+
+        .main {
+            margin-left: 240px;
+            width: calc(100% - 240px);
+            min-height: 100vh;
         }
 
         .topbar {
+            height: 75px;
+            background: rgba(31, 53, 36, 0.96);
+            color: white;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            justify-content: space-between;
+            padding: 0 38px;
         }
 
-        .system-name {
-            font-family: Consolas, monospace;
-            color: #60a5fa;
+        .topbar-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .system-status {
             font-size: 12px;
-            letter-spacing: 2px;
+            color: #c8d5b9;
         }
 
-        .online {
-            font-size: 11px;
-            color: #22c55e;
-            font-family: Consolas, monospace;
+        .content {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 45px 30px;
         }
 
-        .form-panel {
-            background: #111827;
-            border: 1px solid #1f2937;
-            border-radius: 12px;
-            overflow: hidden;
+        .breadcrumb {
+            font-size: 13px;
+            color: #e2e6db;
+            margin-bottom: 12px;
         }
 
-        .panel-header {
-            padding: 25px;
-            border-bottom: 1px solid #1f2937;
-            background: #0f172a;
-        }
-
-        .panel-label {
-            color: #60a5fa;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .page-title {
+            font-size: 34px;
+            color: white;
             margin-bottom: 8px;
         }
 
-        h1 {
-            color: white;
-            font-size: 28px;
-            margin-bottom: 6px;
+        .page-description {
+            color: #e2e7df;
+            margin-bottom: 30px;
         }
 
-        .subtitle {
-            color: #64748b;
-            font-size: 13px;
+        /* FORM CARD */
+
+        .form-card {
+            background: rgba(248, 247, 238, 0.97);
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.25);
         }
 
-        .form-content {
-            padding: 25px;
+        .form-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #d8d8c9;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .form-header h2 {
+            font-size: 23px;
+            color: #283729;
+        }
+
+        .task-id {
+            background: #e0dfd2;
+            color: #59604f;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .form-header p {
+            color: #6c746b;
+            margin-top: 6px;
+            font-size: 14px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
         }
 
         label {
-            display: block;
-            margin-bottom: 7px;
-            margin-top: 18px;
-            color: #cbd5e1;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        label:first-child {
-            margin-top: 0;
+            font-weight: bold;
+            color: #344235;
+            font-size: 14px;
+            margin-bottom: 8px;
         }
 
         input,
         textarea,
         select {
             width: 100%;
-            padding: 12px 14px;
-            background: #0b1120;
-            border: 1px solid #334155;
-            border-radius: 7px;
-            color: white;
-            font-family: Arial, sans-serif;
+            padding: 13px 14px;
+            border: 1px solid #c9cabb;
+            border-radius: 9px;
+            background: white;
             font-size: 14px;
+            color: #293129;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        textarea {
+            min-height: 130px;
+            resize: vertical;
         }
 
         input:focus,
         textarea:focus,
         select:focus {
-            outline: none;
-            border-color: #2563eb;
-        }
-
-        textarea {
-            height: 130px;
-            resize: vertical;
-        }
-
-        select option {
-            background: #111827;
-            color: white;
+            border-color: #607640;
+            box-shadow: 0 0 0 3px rgba(96,118,64,0.12);
         }
 
         .error {
-            background: #2a1215;
-            border: 1px solid #991b1b;
-            color: #fca5a5;
-            padding: 14px;
-            border-radius: 7px;
-            margin-bottom: 20px;
+            color: #a53d32;
+            font-size: 12px;
+            margin-top: 6px;
         }
 
-        .error ul {
-            padding-left: 20px;
-        }
+        /* BUTTONS */
 
-        .buttons {
+        .actions {
             display: flex;
-            gap: 10px;
-            margin-top: 25px;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid #d8d8c9;
         }
 
-        .update-button,
-        .cancel-button {
-            flex: 1;
-            padding: 12px;
-            border-radius: 7px;
-            font-weight: 600;
+        .right-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 9px;
+            padding: 13px 22px;
             font-size: 14px;
+            font-weight: bold;
             cursor: pointer;
-            text-align: center;
             text-decoration: none;
+            display: inline-block;
         }
 
-        .update-button {
-            background: #2563eb;
-            border: 1px solid #3b82f6;
+        .btn-cancel {
+            background: #deddd2;
+            color: #3c443b;
+        }
+
+        .btn-cancel:hover {
+            background: #cecdc2;
+        }
+
+        .btn-update {
+            background: #536a36;
             color: white;
         }
 
-        .update-button:hover {
-            background: #1d4ed8;
+        .btn-update:hover {
+            background: #405529;
         }
 
-        .cancel-button {
-            background: #1e293b;
-            border: 1px solid #334155;
-            color: #cbd5e1;
+        .btn-delete {
+            background: #a65343;
+            color: white;
         }
 
-        .cancel-button:hover {
-            background: #334155;
+        .btn-delete:hover {
+            background: #893f32;
         }
 
-        .footer {
-            text-align: center;
-            padding-top: 20px;
-            color: #475569;
-            font-size: 11px;
-            font-family: Consolas, monospace;
-        }
+        /* MOBILE */
 
-        @media (max-width: 600px) {
+        @media (max-width: 800px) {
 
-            body {
-                padding: 15px;
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
             }
 
-            .buttons {
+            .app {
+                display: block;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .navigation {
+                display: flex;
+                overflow-x: auto;
+            }
+
+            .navigation a {
+                white-space: nowrap;
+            }
+
+            .sidebar-bottom {
+                display: none;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+
+            .form-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .actions {
                 flex-direction: column;
             }
 
+            .right-actions {
+                width: 100%;
+            }
+
+            .right-actions .btn {
+                flex: 1;
+                text-align: center;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .content {
+                padding: 30px 15px;
+            }
+
+            .page-title {
+                font-size: 27px;
+            }
         }
-
     </style>
-
 </head>
 
 <body>
 
-<div class="container">
+<div class="app">
 
-    <div class="topbar">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
 
-        <div class="system-name">
-            TASK CENTER / EDIT RECORD
+        <div class="brand">
+
+            <div class="brand-icon">
+                ✓
+            </div>
+
+            <div>
+                <h2>Personal Task Manager</h2>
+                <p>Stay Organized • Get Things Done</p>
+            </div>
+
         </div>
 
-        <div class="online">
-            ● ONLINE
+
+        <nav class="navigation">
+
+            <a href="{{ route('tasks.index') }}">
+                <span class="nav-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="{{ route('tasks.create') }}">
+                <span class="nav-icon">＋</span>
+                Add Task
+            </a>
+
+            <a href="{{ route('tasks.index') }}" class="active">
+                <span class="nav-icon">☷</span>
+                My Tasks
+            </a>
+
+            <a href="{{ route('tasks.index') }}">
+                <span class="nav-icon">✓</span>
+                Completed
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+            Small steps every day lead to big results.
+            <br>
+            🌿
         </div>
 
-    </div>
+    </aside>
 
 
-    <div class="form-panel">
+    <!-- MAIN -->
+    <main class="main">
 
-        <div class="panel-header">
+        <header class="topbar">
 
-            <div class="panel-label">
+            <div class="topbar-title">
                 Task Management
             </div>
 
-            <h1>Update Task</h1>
+            <div class="system-status">
+                ● SYSTEM ONLINE
+            </div>
 
-            <p class="subtitle">
-                Modify the selected task and save the changes.
+        </header>
+
+
+        <section class="content">
+
+            <div class="breadcrumb">
+                DASHBOARD / MY TASKS / EDIT
+            </div>
+
+            <h1 class="page-title">
+                Edit Task
+            </h1>
+
+            <p class="page-description">
+                Update the information and status of your task.
             </p>
 
-        </div>
 
+            <div class="form-card">
 
-        <div class="form-content">
+                <div class="form-header">
 
-            @if ($errors->any())
+                    <div>
+                        <h2>Task Information</h2>
 
-                <div class="error">
+                        <p>
+                            Modify the details of this task below.
+                        </p>
+                    </div>
 
-                    <ul>
-
-                        @foreach ($errors->all() as $error)
-
-                            <li>{{ $error }}</li>
-
-                        @endforeach
-
-                    </ul>
+                    <div class="task-id">
+                        TASK #{{ $task->id }}
+                    </div>
 
                 </div>
 
-            @endif
 
-
-            <form
-                action="{{ route('tasks.update', $task) }}"
-                method="POST"
-            >
-
-                @csrf
-                @method('PUT')
-
-
-                <label for="task_name">
-                    Task Name
-                </label>
-
-                <input
-                    type="text"
-                    id="task_name"
-                    name="task_name"
-                    value="{{ old('task_name', $task->task_name) }}"
-                    required
+                <form
+                    action="{{ route('tasks.update', $task->id) }}"
+                    method="POST"
                 >
 
+                    @csrf
 
-                <label for="description">
-                    Description
-                </label>
-
-                <textarea
-                    id="description"
-                    name="description"
-                    required
-                >{{ old('description', $task->description) }}</textarea>
+                    @method('PUT')
 
 
-                <label for="status">
-                    Status
-                </label>
+                    <div class="form-grid">
 
-                <select id="status" name="status" required>
+                        <!-- TASK NAME -->
 
-                    <option value="Pending"
-                        {{ old('status', $task->status) == 'Pending' ? 'selected' : '' }}>
-                        Pending
-                    </option>
+                        <div class="form-group full-width">
 
-                    <option value="Completed"
-                        {{ old('status', $task->status) == 'Completed' ? 'selected' : '' }}>
-                        Completed
-                    </option>
+                            <label for="task_name">
+                                Task Name
+                            </label>
 
-                </select>
+                            <input
+                                type="text"
+                                id="task_name"
+                                name="task_name"
+                                value="{{ old('task_name', $task->task_name) }}"
+                                placeholder="Enter task name"
+                                required
+                            >
 
+                            @error('task_name')
+                                <span class="error">
+                                    {{ $message }}
+                                </span>
+                            @enderror
 
-                <label for="due_date">
-                    Due Date
-                </label>
-
-                <input
-                    type="date"
-                    id="due_date"
-                    name="due_date"
-                    value="{{ old('due_date', $task->due_date) }}"
-                    required
-                >
+                        </div>
 
 
-                <div class="buttons">
+                        <!-- DESCRIPTION -->
 
-                    <button type="submit" class="update-button">
-                        Save Changes
-                    </button>
+                        <div class="form-group full-width">
 
-                    <a
-                        href="{{ route('tasks.index') }}"
-                        class="cancel-button"
-                    >
-                        Cancel
-                    </a>
+                            <label for="description">
+                                Description
+                            </label>
 
-                </div>
+                            <textarea
+                                id="description"
+                                name="description"
+                                placeholder="Describe the task..."
+                                required
+                            >{{ old('description', $task->description) }}</textarea>
 
-            </form>
+                            @error('description')
+                                <span class="error">
+                                    {{ $message }}
+                                </span>
+                            @enderror
 
-        </div>
-
-    </div>
+                        </div>
 
 
-    <div class="footer">
-        PERSONAL TASK MANAGER // UPDATE MODULE
-    </div>
+                        <!-- STATUS -->
+
+                        <div class="form-group">
+
+                            <label for="status">
+                                Status
+                            </label>
+
+                            <select
+                                id="status"
+                                name="status"
+                                required
+                            >
+
+                                <option
+                                    value="Pending"
+                                    {{ old('status', $task->status) == 'Pending' ? 'selected' : '' }}
+                                >
+                                    Pending
+                                </option>
+
+                                <option
+                                    value="Completed"
+                                    {{ old('status', $task->status) == 'Completed' ? 'selected' : '' }}
+                                >
+                                    Completed
+                                </option>
+
+                            </select>
+
+                            @error('status')
+                                <span class="error">
+                                    {{ $message }}
+                                </span>
+                            @enderror
+
+                        </div>
+
+
+                        <!-- DUE DATE -->
+
+                        <div class="form-group">
+
+                            <label for="due_date">
+                                Due Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="due_date"
+                                name="due_date"
+                                value="{{ old('due_date', $task->due_date) }}"
+                                required
+                            >
+
+                            @error('due_date')
+                                <span class="error">
+                                    {{ $message }}
+                                </span>
+                            @enderror
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ACTIONS -->
+
+                    <div class="actions">
+
+                        <a
+                            href="{{ route('tasks.index') }}"
+                            class="btn btn-cancel"
+                        >
+                            Cancel
+                        </a>
+
+
+                        <div class="right-actions">
+
+                            <form
+                                action="{{ route('tasks.destroy', $task->id) }}"
+                                method="POST"
+                                onsubmit="return confirm('Are you sure you want to delete this task?')"
+                            >
+                                @csrf
+                                @method('DELETE')
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-delete"
+                                >
+                                    Delete
+                                </button>
+
+                            </form>
+
+
+                            <button
+                                type="submit"
+                                class="btn btn-update"
+                            >
+                                ✓ Update Task
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
 
 </div>
 
