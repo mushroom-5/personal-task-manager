@@ -44,6 +44,12 @@ Each task contains:
 - HTML
 - CSS
 
+# Development Tools
+- Visual Studio
+- Composer
+- Git 
+- Github
+
 ## Laravel Components
 
 ### Routes
