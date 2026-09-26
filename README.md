@@ -43,6 +43,10 @@ Each task contains:
 - Blade
 - HTML
 - CSS
+- Node.js
+- npm
+- Railway
+- Railway CLI
 
 # Development Tools
 - Visual Studio
