@@ -88,9 +88,10 @@ The project contains:
 
 ## How to Run
 
-### 1. Clone the Repository
+### 1. Open the Deployed Application
 
-Clone the project from GitHub:
+The project is available online through Railway:
 
-```bash
-git clone https://github.com/mushroom-5/personal-task-manager.git
+https://laravel-app-production-0385.up.railway.app
+
+Open the link in a web browser to use the application directly.
