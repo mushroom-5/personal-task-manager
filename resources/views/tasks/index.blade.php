@@ -8,14 +8,28 @@
     <title>Dashboard | Personal Task Manager</title>
 
     <style>
+        /* =========================================================
+           GLOBAL
+        ========================================================= */
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
+        html {
+            width: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+        }
+
         body {
+            width: 100%;
+            min-height: 100vh;
+
             font-family: Arial, Helvetica, sans-serif;
+
             background:
                 linear-gradient(
                     rgba(28, 45, 31, 0.82),
@@ -28,40 +42,59 @@
             background-attachment: fixed;
 
             color: #263126;
-            min-height: 100vh;
+
+            overflow-x: hidden;
         }
 
-        /* =========================
+        a,
+        button,
+        input {
+            font-family: inherit;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+
+        /* =========================================================
            APPLICATION
-        ========================= */
+        ========================================================= */
 
         .app {
             min-height: 100vh;
             display: flex;
+            width: 100%;
         }
 
-        /* =========================
+
+        /* =========================================================
            SIDEBAR
-        ========================= */
+        ========================================================= */
 
         .sidebar {
             width: 240px;
+
             background: rgba(28, 47, 32, 0.97);
             color: white;
 
             padding: 28px 18px;
 
             position: fixed;
+
             left: 0;
             top: 0;
             bottom: 0;
 
-            z-index: 10;
+            z-index: 100;
+
+            overflow-y: auto;
         }
 
         .brand {
             display: flex;
             align-items: center;
+
             gap: 12px;
 
             padding: 0 12px 28px;
@@ -72,6 +105,8 @@
         .brand-icon {
             width: 43px;
             height: 43px;
+
+            flex: 0 0 43px;
 
             border-radius: 50%;
 
@@ -86,12 +121,17 @@
 
         .brand h2 {
             font-size: 17px;
+            line-height: 1.3;
         }
 
         .brand p {
             font-size: 10px;
+
             color: #c7d0c4;
+
             margin-top: 4px;
+
+            line-height: 1.4;
         }
 
         .navigation {
@@ -105,6 +145,7 @@
             gap: 14px;
 
             color: #e8eee5;
+
             text-decoration: none;
 
             padding: 14px;
@@ -116,6 +157,8 @@
             font-size: 14px;
 
             transition: 0.2s;
+
+            min-height: 46px;
         }
 
         .navigation a:hover,
@@ -125,7 +168,11 @@
 
         .nav-icon {
             width: 22px;
+
+            flex: 0 0 22px;
+
             text-align: center;
+
             font-size: 18px;
         }
 
@@ -133,18 +180,21 @@
             position: absolute;
 
             bottom: 35px;
+
             left: 30px;
             right: 30px;
 
             color: #cdd6c9;
 
             font-size: 12px;
+
             line-height: 1.6;
         }
 
-        /* =========================
+
+        /* =========================================================
            MAIN
-        ========================= */
+        ========================================================= */
 
         .main {
             margin-left: 240px;
@@ -152,41 +202,57 @@
             width: calc(100% - 240px);
 
             min-height: 100vh;
+
+            min-width: 0;
         }
 
-        /* =========================
+
+        /* =========================================================
            TOP BAR
-        ========================= */
+        ========================================================= */
 
         .topbar {
-            height: 75px;
+            min-height: 75px;
 
             background: rgba(31, 53, 36, 0.96);
 
             color: white;
 
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
 
-            padding: 0 38px;
+            gap: 20px;
+
+            padding: 15px 38px;
         }
 
         .topbar-title {
             font-size: 18px;
+
             font-weight: bold;
+
+            line-height: 1.3;
         }
 
         .system-status {
             font-size: 12px;
+
             color: #c8d5b9;
+
+            white-space: nowrap;
         }
 
-        /* =========================
+
+        /* =========================================================
            CONTENT
-        ========================= */
+        ========================================================= */
 
         .content {
+            width: 100%;
+
             max-width: 1400px;
 
             margin: 0 auto;
@@ -202,6 +268,11 @@
             margin-bottom: 10px;
         }
 
+
+        /* =========================================================
+           WELCOME
+        ========================================================= */
+
         .welcome {
             background: rgba(248,247,238,0.96);
 
@@ -214,7 +285,10 @@
             display: flex;
 
             align-items: center;
+
             justify-content: space-between;
+
+            gap: 20px;
 
             box-shadow: 0 12px 35px rgba(0,0,0,0.18);
         }
@@ -225,12 +299,16 @@
             color: #263126;
 
             margin-bottom: 8px;
+
+            line-height: 1.2;
         }
 
         .welcome p {
             color: #697067;
 
             font-size: 14px;
+
+            line-height: 1.5;
         }
 
         .date-box {
@@ -239,6 +317,8 @@
             color: #4e5d48;
 
             font-size: 13px;
+
+            flex-shrink: 0;
         }
 
         .date-box strong {
@@ -251,14 +331,15 @@
             margin-top: 4px;
         }
 
-        /* =========================
+
+        /* =========================================================
            STAT CARDS
-        ========================= */
+        ========================================================= */
 
         .stats {
             display: grid;
 
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, minmax(0, 1fr));
 
             gap: 18px;
 
@@ -277,6 +358,8 @@
             overflow: hidden;
 
             box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+
+            min-width: 0;
         }
 
         .stat-card.total {
@@ -305,6 +388,7 @@
             color: #40552f;
 
             display: flex;
+
             align-items: center;
             justify-content: center;
 
@@ -335,9 +419,10 @@
             opacity: 0.8;
         }
 
-        /* =========================
+
+        /* =========================================================
            MAIN GRID
-        ========================= */
+        ========================================================= */
 
         .dashboard-grid {
             display: grid;
@@ -347,11 +432,14 @@
             gap: 22px;
 
             align-items: start;
+
+            min-width: 0;
         }
 
-        /* =========================
+
+        /* =========================================================
            TASK PANEL
-        ========================= */
+        ========================================================= */
 
         .task-panel {
             background: rgba(248,247,238,0.97);
@@ -361,13 +449,20 @@
             padding: 25px;
 
             box-shadow: 0 12px 35px rgba(0,0,0,0.20);
+
+            min-width: 0;
+
+            overflow: hidden;
         }
 
         .panel-header {
             display: flex;
 
             align-items: center;
+
             justify-content: space-between;
+
+            gap: 15px;
 
             margin-bottom: 20px;
         }
@@ -378,6 +473,8 @@
             align-items: center;
 
             gap: 10px;
+
+            min-width: 0;
         }
 
         .panel-title h2 {
@@ -396,10 +493,14 @@
             display: flex;
 
             gap: 8px;
+
+            flex-shrink: 0;
         }
 
         .search-box input {
             width: 190px;
+
+            min-height: 40px;
 
             padding: 10px 13px;
 
@@ -410,18 +511,31 @@
             outline: none;
 
             background: white;
+
+            font-size: 13px;
         }
 
         .search-box input:focus {
             border-color: #657b45;
         }
 
-        /* =========================
+
+        /* =========================================================
            TABLE
-        ========================= */
+        ========================================================= */
 
         .table-wrapper {
+            width: 100%;
+
+            max-width: 100%;
+
             overflow-x: auto;
+
+            overflow-y: hidden;
+
+            -webkit-overflow-scrolling: touch;
+
+            border-radius: 8px;
         }
 
         table {
@@ -446,6 +560,8 @@
             font-size: 12px;
 
             text-transform: uppercase;
+
+            white-space: nowrap;
         }
 
         td {
@@ -468,17 +584,22 @@
             font-weight: bold;
 
             color: #29352a;
+
+            min-width: 120px;
         }
 
         .description {
             color: #6c736b;
 
             max-width: 250px;
+
+            line-height: 1.5;
         }
 
-        /* =========================
+
+        /* =========================================================
            STATUS
-        ========================= */
+        ========================================================= */
 
         .status {
             display: inline-block;
@@ -490,6 +611,8 @@
             font-size: 11px;
 
             font-weight: bold;
+
+            white-space: nowrap;
         }
 
         .status-pending {
@@ -504,14 +627,23 @@
             color: #2d5a37;
         }
 
-        /* =========================
+
+        /* =========================================================
            ACTIONS
-        ========================= */
+        ========================================================= */
 
         .actions {
             display: flex;
 
+            align-items: center;
+
             gap: 6px;
+
+            flex-wrap: wrap;
+        }
+
+        .actions form {
+            margin: 0;
         }
 
         .btn {
@@ -521,6 +653,8 @@
 
             padding: 8px 11px;
 
+            min-height: 36px;
+
             font-size: 11px;
 
             font-weight: bold;
@@ -528,6 +662,14 @@
             cursor: pointer;
 
             text-decoration: none;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            white-space: nowrap;
         }
 
         .btn-edit {
@@ -550,9 +692,10 @@
             background: #883e31;
         }
 
-        /* =========================
+
+        /* =========================================================
            SIDE PANEL
-        ========================= */
+        ========================================================= */
 
         .side-column {
             display: flex;
@@ -560,6 +703,8 @@
             flex-direction: column;
 
             gap: 20px;
+
+            min-width: 0;
         }
 
         .side-card {
@@ -570,6 +715,8 @@
             overflow: hidden;
 
             box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+
+            min-width: 0;
         }
 
         .side-card-header {
@@ -588,7 +735,10 @@
             padding: 18px;
         }
 
-        /* QUICK ACTIONS */
+
+        /* =========================================================
+           QUICK ACTIONS
+        ========================================================= */
 
         .quick-action {
             display: block;
@@ -596,6 +746,8 @@
             width: 100%;
 
             padding: 13px;
+
+            min-height: 44px;
 
             margin-bottom: 10px;
 
@@ -614,6 +766,10 @@
             border: 1px solid #dfded2;
 
             transition: 0.2s;
+        }
+
+        .quick-action:last-child {
+            margin-bottom: 0;
         }
 
         .quick-action:hover {
@@ -636,12 +792,17 @@
             background: #485e2f;
         }
 
-        /* ACTIVITY */
+
+        /* =========================================================
+           ACTIVITY
+        ========================================================= */
 
         .activity-item {
             padding: 14px 0;
 
             border-bottom: 1px solid #dfded3;
+
+            overflow-wrap: anywhere;
         }
 
         .activity-item:last-child {
@@ -654,12 +815,16 @@
             color: #384238;
 
             margin-bottom: 5px;
+
+            line-height: 1.5;
         }
 
         .activity-date {
             font-size: 10px;
 
             color: #858b83;
+
+            line-height: 1.4;
         }
 
         .activity-dot {
@@ -676,6 +841,11 @@
             margin-right: 7px;
         }
 
+
+        /* =========================================================
+           EMPTY STATE
+        ========================================================= */
+
         .empty {
             padding: 35px 15px;
 
@@ -686,9 +856,10 @@
             font-size: 14px;
         }
 
-        /* =========================
+
+        /* =========================================================
            ALERT
-        ========================= */
+        ========================================================= */
 
         .alert {
             background: #dcebd7;
@@ -702,98 +873,684 @@
             margin-bottom: 20px;
 
             font-size: 13px;
+
+            line-height: 1.5;
         }
 
-        /* =========================
-           MOBILE
-        ========================= */
 
-        @media (max-width: 1000px) {
+        /* =========================================================
+           LARGE TABLET / SMALL LAPTOP
+        ========================================================= */
+
+        @media (max-width: 1150px) {
+
+            .sidebar {
+                width: 220px;
+            }
+
+            .main {
+                margin-left: 220px;
+
+                width: calc(100% - 220px);
+            }
+
+            .content {
+                padding: 30px 22px;
+            }
 
             .dashboard-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: minmax(0, 1fr);
             }
 
             .side-column {
                 display: grid;
 
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
-
         }
 
-        @media (max-width: 800px) {
+
+        /* =========================================================
+           TABLET
+        ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 190px;
+
+                padding: 22px 14px;
+            }
+
+            .main {
+                margin-left: 190px;
+
+                width: calc(100% - 190px);
+            }
+
+            .brand {
+                padding-left: 7px;
+                padding-right: 7px;
+            }
+
+            .brand h2 {
+                font-size: 15px;
+            }
+
+            .brand p {
+                font-size: 9px;
+            }
+
+            .navigation {
+                margin-top: 22px;
+            }
+
+            .navigation a {
+                padding: 12px 10px;
+
+                font-size: 13px;
+
+                gap: 10px;
+            }
+
+            .topbar {
+                padding: 14px 22px;
+            }
+
+            .content {
+                padding: 25px 18px;
+            }
+
+            .welcome {
+                padding: 24px;
+            }
+
+            .welcome h1 {
+                font-size: 26px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .stat-card.total {
+                grid-column: span 2;
+            }
+
+            .side-column {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+
+        /* =========================================================
+           MOBILE
+        ========================================================= */
+
+        @media (max-width: 700px) {
+
+            html,
+            body {
+                width: 100%;
+
+                max-width: 100%;
+
+                overflow-x: hidden;
+            }
 
             .app {
                 display: block;
+
+                width: 100%;
+
+                min-height: 100vh;
             }
 
+
+            /* MOBILE SIDEBAR */
+
             .sidebar {
+                position: relative;
+
+                left: auto;
+                top: auto;
+                bottom: auto;
+
                 width: 100%;
 
                 height: auto;
 
-                position: relative;
+                padding: 15px;
+
+                overflow: visible;
             }
 
-            .main {
-                margin-left: 0;
+            .brand {
+                padding: 4px 4px 15px;
 
-                width: 100%;
+                gap: 10px;
             }
+
+            .brand-icon {
+                width: 38px;
+                height: 38px;
+
+                flex: 0 0 38px;
+
+                font-size: 18px;
+            }
+
+            .brand h2 {
+                font-size: 15px;
+
+                line-height: 1.25;
+            }
+
+            .brand p {
+                font-size: 9px;
+
+                margin-top: 3px;
+            }
+
+
+            /* MOBILE NAVIGATION */
 
             .navigation {
+                width: 100%;
+
+                margin-top: 12px;
+
                 display: flex;
 
+                gap: 7px;
+
                 overflow-x: auto;
+
+                padding-bottom: 4px;
+
+                -webkit-overflow-scrolling: touch;
+
+                scrollbar-width: thin;
             }
 
             .navigation a {
-                white-space: nowrap;
+                flex: 0 0 auto;
+
+                margin-bottom: 0;
+
+                padding: 10px 12px;
+
+                min-height: 42px;
+
+                border-radius: 8px;
+
+                font-size: 12px;
+
+                gap: 7px;
+            }
+
+            .nav-icon {
+                width: auto;
+
+                flex: 0 0 auto;
+
+                font-size: 16px;
             }
 
             .sidebar-bottom {
                 display: none;
             }
 
-            .topbar {
-                padding: 0 20px;
+
+            /* MAIN */
+
+            .main {
+                width: 100%;
+
+                margin-left: 0;
+
+                min-height: auto;
             }
 
-            .content {
-                padding: 25px 15px;
+
+            /* TOPBAR */
+
+            .topbar {
+                min-height: 60px;
+
+                height: auto;
+
+                padding: 13px 15px;
+
+                gap: 8px;
             }
+
+            .topbar-title {
+                font-size: 15px;
+
+                line-height: 1.3;
+            }
+
+            .system-status {
+                font-size: 9px;
+
+                white-space: nowrap;
+            }
+
+
+            /* CONTENT */
+
+            .content {
+                width: 100%;
+
+                padding: 18px 12px;
+            }
+
+            .breadcrumb {
+                font-size: 9px;
+
+                margin-bottom: 8px;
+            }
+
+
+            /* WELCOME */
 
             .welcome {
                 display: block;
+
+                padding: 19px;
+
+                border-radius: 14px;
+
+                margin-bottom: 16px;
+            }
+
+            .welcome h1 {
+                font-size: 22px;
+
+                line-height: 1.25;
+
+                margin-bottom: 7px;
+            }
+
+            .welcome p {
+                font-size: 13px;
+
+                line-height: 1.5;
             }
 
             .date-box {
                 text-align: left;
 
                 margin-top: 15px;
+
+                font-size: 12px;
             }
+
+            .date-box strong {
+                font-size: 13px;
+            }
+
+
+            /* ALERT */
+
+            .alert {
+                font-size: 12px;
+
+                padding: 12px 14px;
+
+                margin-bottom: 16px;
+            }
+
+
+            /* STATS */
 
             .stats {
                 grid-template-columns: 1fr;
+
+                gap: 12px;
+
+                margin-bottom: 16px;
             }
 
-            .side-column {
+            .stat-card.total {
+                grid-column: auto;
+            }
+
+            .stat-card {
+                min-height: 115px;
+
+                padding: 19px;
+
+                border-radius: 14px;
+            }
+
+            .stat-icon {
+                width: 36px;
+                height: 36px;
+
+                margin-bottom: 11px;
+
+                font-size: 18px;
+            }
+
+            .stat-card h3 {
+                font-size: 12px;
+            }
+
+            .stat-number {
+                font-size: 28px;
+            }
+
+            .stat-description {
+                font-size: 10px;
+            }
+
+
+            /* DASHBOARD GRID */
+
+            .dashboard-grid {
                 grid-template-columns: 1fr;
+
+                gap: 16px;
+
+                width: 100%;
+            }
+
+
+            /* TASK PANEL */
+
+            .task-panel {
+                width: 100%;
+
+                padding: 16px;
+
+                border-radius: 14px;
             }
 
             .panel-header {
                 display: block;
+
+                margin-bottom: 15px;
             }
 
+            .panel-title {
+                width: 100%;
+            }
+
+            .panel-title h2 {
+                font-size: 19px;
+            }
+
+            .panel-icon {
+                font-size: 20px;
+            }
+
+
+            /* SEARCH */
+
             .search-box {
-                margin-top: 15px;
+                width: 100%;
+
+                margin-top: 12px;
             }
 
             .search-box input {
                 width: 100%;
+
+                min-height: 43px;
+
+                font-size: 14px;
             }
 
+
+            /* MOBILE TABLE */
+
+            .table-wrapper {
+                width: 100%;
+
+                max-width: 100%;
+
+                overflow-x: auto;
+
+                overflow-y: hidden;
+
+                -webkit-overflow-scrolling: touch;
+
+                border-radius: 7px;
+            }
+
+            table {
+                min-width: 700px;
+            }
+
+            th {
+                padding: 11px 10px;
+
+                font-size: 10px;
+            }
+
+            td {
+                padding: 12px 10px;
+
+                font-size: 12px;
+            }
+
+            .task-name {
+                min-width: 120px;
+            }
+
+            .description {
+                max-width: 220px;
+            }
+
+
+            /* BUTTONS */
+
+            .actions {
+                gap: 6px;
+
+                flex-wrap: wrap;
+            }
+
+            .btn {
+                min-height: 38px;
+
+                padding: 9px 12px;
+
+                font-size: 11px;
+            }
+
+
+            /* SIDE COLUMN */
+
+            .side-column {
+                display: grid;
+
+                grid-template-columns: 1fr;
+
+                gap: 14px;
+
+                width: 100%;
+            }
+
+            .side-card {
+                width: 100%;
+
+                border-radius: 14px;
+            }
+
+            .side-card-header {
+                padding: 15px 17px;
+
+                font-size: 14px;
+            }
+
+            .side-card-body {
+                padding: 15px;
+            }
+
+
+            /* QUICK ACTIONS */
+
+            .quick-action {
+                min-height: 46px;
+
+                padding: 12px;
+
+                font-size: 13px;
+            }
+
+
+            /* ACTIVITY */
+
+            .activity-item {
+                padding: 12px 0;
+            }
+        }
+
+
+        /* =========================================================
+           SMALL PHONES
+        ========================================================= */
+
+        @media (max-width: 480px) {
+
+            .sidebar {
+                padding: 12px;
+            }
+
+            .brand {
+                gap: 8px;
+
+                padding-bottom: 12px;
+            }
+
+            .brand-icon {
+                width: 36px;
+                height: 36px;
+
+                flex-basis: 36px;
+
+                font-size: 17px;
+            }
+
+            .brand h2 {
+                font-size: 14px;
+            }
+
+            .brand p {
+                font-size: 8px;
+            }
+
+            .navigation a {
+                padding: 9px 10px;
+
+                min-height: 40px;
+
+                font-size: 11px;
+            }
+
+            .topbar {
+                padding: 12px;
+
+                align-items: flex-start;
+
+                flex-direction: column;
+
+                gap: 5px;
+            }
+
+            .topbar-title {
+                font-size: 14px;
+            }
+
+            .system-status {
+                font-size: 9px;
+            }
+
+            .content {
+                padding: 15px 9px;
+            }
+
+            .welcome {
+                padding: 17px;
+
+                border-radius: 13px;
+            }
+
+            .welcome h1 {
+                font-size: 20px;
+            }
+
+            .welcome p {
+                font-size: 12px;
+            }
+
+            .stat-card {
+                padding: 17px;
+            }
+
+            .task-panel {
+                padding: 13px;
+
+                border-radius: 13px;
+            }
+
+            .panel-title h2 {
+                font-size: 18px;
+            }
+
+            .side-card-body {
+                padding: 13px;
+            }
+        }
+
+
+        /* =========================================================
+           EXTRA SMALL PHONES
+        ========================================================= */
+
+        @media (max-width: 360px) {
+
+            .brand h2 {
+                font-size: 13px;
+            }
+
+            .brand p {
+                font-size: 7px;
+            }
+
+            .navigation {
+                gap: 5px;
+            }
+
+            .navigation a {
+                padding: 8px 9px;
+
+                font-size: 10px;
+            }
+
+            .nav-icon {
+                font-size: 14px;
+            }
+
+            .content {
+                padding-left: 7px;
+                padding-right: 7px;
+            }
+
+            .welcome h1 {
+                font-size: 19px;
+            }
+
+            .task-panel {
+                padding: 11px;
+            }
+
+            .stat-card {
+                padding: 15px;
+            }
         }
     </style>
 </head>
@@ -802,9 +1559,9 @@
 
 <div class="app">
 
-    <!-- =========================
+    <!-- =========================================================
          SIDEBAR
-    ========================== -->
+    ========================================================== -->
 
     <aside class="sidebar">
 
@@ -879,9 +1636,9 @@
     </aside>
 
 
-    <!-- =========================
+    <!-- =========================================================
          MAIN
-    ========================== -->
+    ========================================================== -->
 
     <main class="main">
 
@@ -918,7 +1675,9 @@
             </div>
 
 
-            <!-- WELCOME -->
+            <!-- =================================================
+                 WELCOME
+            ================================================== -->
 
             <div class="welcome">
 
@@ -948,7 +1707,9 @@
             </div>
 
 
-            <!-- SUCCESS MESSAGE -->
+            <!-- =================================================
+                 SUCCESS MESSAGE
+            ================================================== -->
 
             @if(session('success'))
 
@@ -961,9 +1722,9 @@
             @endif
 
 
-            <!-- =========================
+            <!-- =================================================
                  STATISTICS
-            ========================== -->
+            ================================================== -->
 
             @php
 
@@ -1054,16 +1815,16 @@
             </div>
 
 
-            <!-- =========================
+            <!-- =================================================
                  DASHBOARD GRID
-            ========================== -->
+            ================================================== -->
 
             <div class="dashboard-grid">
 
 
-                <!-- =====================
+                <!-- =================================================
                      TASK TABLE
-                ====================== -->
+                ================================================== -->
 
                 <div class="task-panel">
 
@@ -1090,6 +1851,7 @@
                                 type="text"
                                 id="taskSearch"
                                 placeholder="Search tasks..."
+                                aria-label="Search tasks"
                             >
 
                         </div>
@@ -1274,9 +2036,9 @@
                 </div>
 
 
-                <!-- =====================
+                <!-- =================================================
                      RIGHT SIDE
-                ====================== -->
+                ================================================== -->
 
                 <div class="side-column">
 
@@ -1392,9 +2154,9 @@
 </div>
 
 
-<!-- =========================
+<!-- =========================================================
      SEARCH
-========================= -->
+========================================================= -->
 
 <script>
 
@@ -1405,31 +2167,35 @@
         document.querySelectorAll('#taskTable tr');
 
 
-    searchInput.addEventListener('keyup', function () {
+    if (searchInput) {
 
-        const search =
-            this.value.toLowerCase();
+        searchInput.addEventListener('keyup', function () {
 
-
-        rows.forEach(function (row) {
-
-            const text =
-                row.textContent.toLowerCase();
+            const search =
+                this.value.toLowerCase();
 
 
-            if (text.includes(search)) {
+            rows.forEach(function (row) {
 
-                row.style.display = '';
+                const text =
+                    row.textContent.toLowerCase();
 
-            } else {
 
-                row.style.display = 'none';
+                if (text.includes(search)) {
 
-            }
+                    row.style.display = '';
+
+                } else {
+
+                    row.style.display = 'none';
+
+                }
+
+            });
 
         });
 
-    });
+    }
 
 </script>
 
