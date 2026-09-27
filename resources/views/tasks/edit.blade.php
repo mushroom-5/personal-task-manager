@@ -12,7 +12,12 @@
 
     <title>Edit Task | Personal Task Manager</title>
 
+
     <style>
+
+        /* =========================================================
+           GLOBAL
+        ========================================================= */
 
         * {
             box-sizing: border-box;
@@ -20,135 +25,243 @@
             padding: 0;
         }
 
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+        }
+
         body {
             font-family: Arial, Helvetica, sans-serif;
 
+            color: #172033;
+
             background:
-                linear-gradient(
-                    rgba(31, 52, 35, 0.82),
-                    rgba(31, 52, 35, 0.82)
+                radial-gradient(
+                    circle at 15% 15%,
+                    rgba(70, 130, 255, .20),
+                    transparent 28%
                 ),
-                url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=2000&q=80");
 
-            background-size: cover;
-            background-position: center;
+                radial-gradient(
+                    circle at 85% 80%,
+                    rgba(0, 220, 190, .16),
+                    transparent 28%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #07111f,
+                    #0c1d32 45%,
+                    #102b42
+                );
+
             background-attachment: fixed;
+        }
 
-            color: #263126;
-            min-height: 100vh;
+        a,
+        button,
+        input,
+        textarea,
+        select {
+            font-family: inherit;
         }
 
 
-        /* APP */
+        /* =========================================================
+           APP
+        ========================================================= */
 
         .app {
             min-height: 100vh;
-            display: flex;
+            width: 100%;
         }
 
 
-        /* SIDEBAR */
+        /* =========================================================
+           SIDEBAR
+        ========================================================= */
 
         .sidebar {
-            width: 240px;
-
-            background: rgba(28, 47, 32, 0.96);
-
-            color: white;
-
-            padding: 28px 18px;
 
             position: fixed;
 
             left: 0;
             top: 0;
             bottom: 0;
+
+            width: 250px;
+
+            padding: 25px 18px;
+
+            z-index: 100;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    160deg,
+                    rgba(12, 29, 51, .98),
+                    rgba(5, 16, 30, .98)
+                );
+
+            border-right:
+                1px solid rgba(255,255,255,.08);
+
+            box-shadow:
+                12px 0 40px rgba(0,0,0,.30);
+
+            overflow-y: auto;
         }
 
 
         .brand {
+
             display: flex;
 
             align-items: center;
 
             gap: 12px;
 
-            padding: 0 12px 30px;
+            padding:
+                5px 8px 25px;
 
             border-bottom:
-                1px solid rgba(255,255,255,0.12);
+                1px solid rgba(255,255,255,.10);
         }
 
 
         .brand-icon {
-            width: 42px;
-            height: 42px;
 
-            border-radius: 50%;
+            width: 46px;
+            height: 46px;
 
-            background: #71844a;
+            flex: 0 0 46px;
 
             display: flex;
 
             align-items: center;
             justify-content: center;
 
+            border-radius: 15px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #4d9cff,
+                    #1764d1
+                );
+
             font-size: 22px;
+            font-weight: bold;
+
+            box-shadow:
+                5px 5px 12px rgba(0,0,0,.35),
+
+                inset
+                2px 2px 5px
+                rgba(255,255,255,.30);
         }
 
 
         .brand h2 {
-            font-size: 18px;
+
+            font-size: 16px;
+
+            line-height: 1.25;
         }
 
 
         .brand p {
-            font-size: 11px;
 
-            color: #c7d0c4;
+            margin-top: 5px;
 
-            margin-top: 4px;
+            color: #9eacc0;
+
+            font-size: 9px;
+
+            line-height: 1.4;
         }
 
 
-        /* NAVIGATION */
+        /* =========================================================
+           NAVIGATION
+        ========================================================= */
 
         .navigation {
-            margin-top: 30px;
+
+            margin-top: 28px;
         }
 
 
         .navigation a {
+
             display: flex;
 
             align-items: center;
 
-            gap: 14px;
+            gap: 13px;
 
-            color: #e8eee5;
+            min-height: 48px;
+
+            margin-bottom: 9px;
+
+            padding: 12px 14px;
+
+            border-radius: 12px;
+
+            color: #b9c7d8;
 
             text-decoration: none;
 
-            padding: 14px;
+            font-size: 13px;
 
-            margin-bottom: 8px;
+            font-weight: 600;
 
-            border-radius: 10px;
-
-            font-size: 14px;
-
-            transition: 0.2s;
+            transition: .25s ease;
         }
 
 
-        .navigation a:hover,
+        .navigation a:hover {
+
+            color: white;
+
+            background:
+                rgba(65, 137, 235, .15);
+
+            transform:
+                translateX(3px);
+        }
+
+
         .navigation a.active {
-            background: #566c37;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #287fe8,
+                    #175cc0
+                );
+
+            box-shadow:
+                5px 7px 15px rgba(0,0,0,.28),
+
+                inset
+                1px 1px 4px
+                rgba(255,255,255,.20);
         }
 
 
         .nav-icon {
+
             width: 22px;
+
+            flex: 0 0 22px;
 
             text-align: center;
 
@@ -157,40 +270,48 @@
 
 
         .sidebar-bottom {
+
             position: absolute;
 
-            bottom: 35px;
+            left: 25px;
+            right: 25px;
+            bottom: 28px;
 
-            left: 30px;
-            right: 30px;
+            color: #8292a7;
 
-            color: #cdd6c9;
-
-            font-size: 12px;
+            font-size: 11px;
 
             line-height: 1.6;
         }
 
 
-        /* MAIN */
+        /* =========================================================
+           MAIN
+        ========================================================= */
 
         .main {
-            margin-left: 240px;
 
-            width: calc(100% - 240px);
+            width:
+                calc(100% - 250px);
 
             min-height: 100vh;
+
+            margin-left: 250px;
+
+            min-width: 0;
         }
 
 
-        /* TOPBAR */
+        /* =========================================================
+           TOPBAR
+        ========================================================= */
 
         .topbar {
-            height: 75px;
 
-            background: rgba(31, 53, 36, 0.96);
+            min-height: 72px;
 
-            color: white;
+            padding:
+                15px 35px;
 
             display: flex;
 
@@ -198,11 +319,23 @@
 
             justify-content: space-between;
 
-            padding: 0 38px;
+            gap: 20px;
+
+            color: white;
+
+            background:
+                rgba(7, 19, 34, .78);
+
+            border-bottom:
+                1px solid rgba(255,255,255,.08);
+
+            backdrop-filter:
+                blur(18px);
         }
 
 
         .topbar-title {
+
             font-size: 18px;
 
             font-weight: bold;
@@ -210,138 +343,258 @@
 
 
         .system-status {
-            font-size: 12px;
 
-            color: #c8d5b9;
+            padding:
+                8px 13px;
+
+            border-radius: 20px;
+
+            color: #83f0bc;
+
+            background:
+                rgba(51, 214, 143, .10);
+
+            border:
+                1px solid rgba(51, 214, 143, .18);
+
+            font-size: 11px;
+
+            font-weight: bold;
         }
 
 
-        /* CONTENT */
+        /* =========================================================
+           CONTENT
+        ========================================================= */
 
         .content {
-            max-width: 1050px;
 
-            margin: 0 auto;
+            width: 100%;
 
-            padding: 45px 30px;
+            max-width: 1100px;
+
+            margin: auto;
+
+            padding: 32px;
         }
 
 
         .breadcrumb {
-            font-size: 13px;
-
-            color: #e2e6db;
 
             margin-bottom: 12px;
+
+            color: #8fa1b7;
+
+            font-size: 10px;
+
+            font-weight: bold;
+
+            letter-spacing: 1px;
         }
 
 
         .page-title {
-            font-size: 34px;
+
+            margin-bottom: 8px;
 
             color: white;
 
-            margin-bottom: 8px;
+            font-size: 32px;
+
+            line-height: 1.2;
         }
 
 
         .page-description {
-            color: #e2e7df;
 
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+
+            color: #b9c9da;
+
+            font-size: 13px;
         }
 
 
-        /* FORM CARD */
+        /* =========================================================
+           FORM CARD
+        ========================================================= */
 
         .form-card {
-            background: rgba(248, 247, 238, 0.97);
 
-            border-radius: 18px;
+            position: relative;
 
-            padding: 35px;
+            overflow: hidden;
+
+            padding: 30px;
+
+            border-radius: 22px;
+
+            border:
+                1px solid rgba(255,255,255,.14);
+
+            background:
+                rgba(239, 245, 252, .96);
 
             box-shadow:
-                0 15px 45px rgba(0,0,0,0.25);
+
+                0 25px 55px
+                rgba(0,0,0,.30),
+
+                inset
+                1px 1px 0
+                rgba(255,255,255,.70);
+
+            backdrop-filter:
+                blur(18px);
         }
 
 
-        .form-header {
-            display: flex;
+        .form-card::after {
 
-            justify-content: space-between;
+            content: "";
+
+            position: absolute;
+
+            width: 230px;
+            height: 230px;
+
+            right: -110px;
+            top: -120px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(66, 139, 230, .08);
+
+            pointer-events: none;
+        }
+
+
+        /* =========================================================
+           FORM HEADER
+        ========================================================= */
+
+        .form-header {
+
+            position: relative;
+
+            z-index: 1;
+
+            display: flex;
 
             align-items: center;
 
-            border-bottom:
-                1px solid #d8d8c9;
+            justify-content: space-between;
+
+            gap: 20px;
 
             padding-bottom: 20px;
 
             margin-bottom: 25px;
+
+            border-bottom:
+                1px solid #dce4ec;
         }
 
 
         .form-header h2 {
+
+            color: #14253b;
+
             font-size: 23px;
-
-            color: #283729;
-        }
-
-
-        .task-id {
-            background: #e0dfd2;
-
-            color: #59604f;
-
-            padding: 7px 12px;
-
-            border-radius: 20px;
-
-            font-size: 12px;
         }
 
 
         .form-header p {
-            color: #6c746b;
 
             margin-top: 6px;
 
-            font-size: 14px;
+            color: #6d7b8d;
+
+            font-size: 13px;
         }
 
 
-        /* FORM GRID */
+        /* =========================================================
+           TASK ID
+        ========================================================= */
+
+        .task-id {
+
+            flex-shrink: 0;
+
+            padding:
+                8px 13px;
+
+            border-radius: 20px;
+
+            color: #1e62ad;
+
+            background:
+                #e5f0fc;
+
+            border:
+                1px solid #c7def5;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            box-shadow:
+                2px 3px 7px
+                rgba(0,0,0,.06);
+        }
+
+
+        /* =========================================================
+           FORM
+        ========================================================= */
+
+        form {
+
+            position: relative;
+
+            z-index: 1;
+        }
+
 
         .form-grid {
+
             display: grid;
 
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns:
+                1fr 1fr;
 
             gap: 22px;
         }
 
 
         .form-group {
+
             display: flex;
 
             flex-direction: column;
+
+            min-width: 0;
         }
 
 
         .full-width {
-            grid-column: 1 / -1;
+
+            grid-column:
+                1 / -1;
         }
 
 
         label {
-            font-weight: bold;
-
-            color: #344235;
-
-            font-size: 14px;
 
             margin-bottom: 8px;
+
+            color: #2b3d53;
+
+            font-size: 13px;
+
+            font-weight: bold;
         }
 
 
@@ -351,30 +604,41 @@
 
             width: 100%;
 
-            padding: 13px 14px;
+            padding:
+                13px 14px;
 
             border:
-                1px solid #c9cabb;
+                1px solid #ccd7e2;
 
-            border-radius: 9px;
-
-            background: white;
-
-            font-size: 14px;
-
-            color: #293129;
+            border-radius: 11px;
 
             outline: none;
 
-            transition: 0.2s;
+            color: #24364b;
+
+            background:
+                rgba(255,255,255,.96);
+
+            font-size: 14px;
+
+            box-shadow:
+                inset
+                1px 2px 5px
+                rgba(0,0,0,.035);
+
+            transition:
+                border-color .2s ease,
+                box-shadow .2s ease,
+                transform .2s ease;
         }
 
 
-        textarea {
+        input:hover,
+        textarea:hover,
+        select:hover {
 
-            min-height: 130px;
-
-            resize: vertical;
+            border-color:
+                #b6c7da;
         }
 
 
@@ -382,30 +646,63 @@
         textarea:focus,
         select:focus {
 
-            border-color: #607640;
+            border-color:
+                #3489e6;
 
             box-shadow:
-                0 0 0 3px rgba(96,118,64,0.12);
+
+                0 0 0 3px
+                rgba(52,137,230,.12),
+
+                inset
+                1px 2px 5px
+                rgba(0,0,0,.03);
         }
 
 
-        /* ERRORS */
+        textarea {
+
+            min-height: 140px;
+
+            resize: vertical;
+
+            line-height: 1.5;
+        }
+
+
+        input::placeholder,
+        textarea::placeholder {
+
+            color:
+                #9aa7b5;
+        }
+
+
+        /* =========================================================
+           VALIDATION
+        ========================================================= */
 
         .error {
 
-            color: #a53d32;
-
-            font-size: 12px;
-
             margin-top: 6px;
+
+            color: #bd3d48;
+
+            font-size: 11px;
+
+            line-height: 1.4;
         }
 
 
-        /* BUTTONS */
+        /* =========================================================
+           ACTIONS
+        ========================================================= */
 
         .actions {
 
             display: flex;
+
+            align-items: center;
 
             justify-content: space-between;
 
@@ -416,7 +713,7 @@
             padding-top: 25px;
 
             border-top:
-                1px solid #d8d8c9;
+                1px solid #dce4ec;
         }
 
 
@@ -424,71 +721,225 @@
 
             display: flex;
 
+            align-items: center;
+
             gap: 12px;
         }
 
 
+        /* =========================================================
+           BUTTONS
+        ========================================================= */
+
         .btn {
+
+            min-height: 44px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding:
+                11px 20px;
 
             border: none;
 
-            border-radius: 9px;
+            border-radius: 10px;
 
-            padding: 13px 22px;
-
-            font-size: 14px;
+            font-size: 13px;
 
             font-weight: bold;
 
-            cursor: pointer;
-
             text-decoration: none;
 
-            display: inline-block;
+            cursor: pointer;
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease,
+                background .2s ease;
+        }
+
+
+        .btn:hover {
+
+            transform:
+                translateY(-2px);
         }
 
 
         .btn-cancel {
 
-            background: #deddd2;
+            color: #405064;
 
-            color: #3c443b;
+            background:
+                linear-gradient(
+                    145deg,
+                    #eef2f6,
+                    #d9e0e8
+                );
+
+            border:
+                1px solid #ccd6e0;
+
+            box-shadow:
+                3px 5px 10px
+                rgba(0,0,0,.08);
         }
 
 
         .btn-cancel:hover {
 
-            background: #cecdc2;
+            background:
+                linear-gradient(
+                    145deg,
+                    #e4e9ef,
+                    #d0d8e2
+                );
         }
 
 
         .btn-update {
 
-            background: #536a36;
-
             color: white;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #348ee9,
+                    #155db6
+                );
+
+            box-shadow:
+
+                4px 6px 14px
+                rgba(25,92,174,.28),
+
+                inset
+                1px 1px 3px
+                rgba(255,255,255,.20);
         }
 
 
         .btn-update:hover {
 
-            background: #405529;
+            background:
+                linear-gradient(
+                    145deg,
+                    #277fd9,
+                    #1251a1
+                );
+
+            box-shadow:
+
+                5px 8px 17px
+                rgba(25,92,174,.34);
         }
 
 
-        /* MOBILE */
+        /* =========================================================
+           TABLET
+        ========================================================= */
 
-        @media (max-width: 800px) {
+        @media (max-width: 1150px) {
 
             .sidebar {
 
-                width: 100%;
-
-                height: auto;
-
-                position: relative;
+                width: 220px;
             }
 
+
+            .main {
+
+                width:
+                    calc(100% - 220px);
+
+                margin-left:
+                    220px;
+            }
+
+
+            .content {
+
+                padding:
+                    28px 22px;
+            }
+
+        }
+
+
+        /* =========================================================
+           SMALL TABLET
+        ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+
+                width: 190px;
+
+                padding:
+                    20px 13px;
+            }
+
+
+            .main {
+
+                width:
+                    calc(100% - 190px);
+
+                margin-left:
+                    190px;
+            }
+
+
+            .brand h2 {
+
+                font-size: 14px;
+            }
+
+
+            .navigation a {
+
+                padding:
+                    11px 9px;
+
+                gap: 8px;
+
+                font-size: 12px;
+            }
+
+
+            .topbar {
+
+                padding:
+                    14px 20px;
+            }
+
+
+            .content {
+
+                padding:
+                    24px 17px;
+            }
+
+
+            .form-card {
+
+                padding:
+                    24px;
+            }
+
+        }
+
+
+        /* =========================================================
+           MOBILE
+        ========================================================= */
+
+        @media (max-width: 700px) {
 
             .app {
 
@@ -496,11 +947,34 @@
             }
 
 
-            .main {
+            .sidebar {
 
-                margin-left: 0;
+                position: relative;
 
                 width: 100%;
+
+                height: auto;
+
+                padding:
+                    15px;
+
+                overflow: visible;
+            }
+
+
+            .brand {
+
+                padding:
+                    3px 3px 15px;
+            }
+
+
+            .brand-icon {
+
+                width: 40px;
+                height: 40px;
+
+                flex-basis: 40px;
             }
 
 
@@ -508,13 +982,34 @@
 
                 display: flex;
 
+                width: 100%;
+
+                margin-top: 12px;
+
+                gap: 7px;
+
                 overflow-x: auto;
+
+                padding-bottom: 4px;
+
+                -webkit-overflow-scrolling:
+                    touch;
             }
 
 
             .navigation a {
 
-                white-space: nowrap;
+                flex:
+                    0 0 auto;
+
+                min-height: 42px;
+
+                margin-bottom: 0;
+
+                padding:
+                    10px 12px;
+
+                font-size: 11px;
             }
 
 
@@ -524,31 +1019,118 @@
             }
 
 
-            .form-grid {
+            .main {
 
-                grid-template-columns: 1fr;
+                width: 100%;
+
+                margin-left: 0;
             }
 
 
-            .full-width {
+            .topbar {
 
-                grid-column: auto;
+                min-height: 60px;
+
+                padding:
+                    12px 15px;
+            }
+
+
+            .topbar-title {
+
+                font-size: 14px;
+            }
+
+
+            .system-status {
+
+                padding:
+                    7px 10px;
+
+                font-size: 9px;
+            }
+
+
+            .content {
+
+                padding:
+                    20px 12px;
+            }
+
+
+            .breadcrumb {
+
+                font-size: 9px;
+            }
+
+
+            .page-title {
+
+                font-size: 25px;
+            }
+
+
+            .page-description {
+
+                font-size: 12px;
+
+                line-height: 1.5;
+            }
+
+
+            .form-card {
+
+                padding:
+                    19px;
+
+                border-radius:
+                    17px;
             }
 
 
             .form-header {
 
-                flex-direction: column;
+                align-items:
+                    flex-start;
 
-                align-items: flex-start;
+                flex-direction:
+                    column;
 
-                gap: 10px;
+                gap:
+                    12px;
+            }
+
+
+            .form-header h2 {
+
+                font-size: 20px;
+            }
+
+
+            .form-grid {
+
+                grid-template-columns:
+                    1fr;
+
+                gap:
+                    18px;
+            }
+
+
+            .full-width {
+
+                grid-column:
+                    auto;
             }
 
 
             .actions {
 
-                flex-direction: column;
+                flex-direction:
+                    column;
+
+                align-items:
+                    stretch;
             }
 
 
@@ -560,27 +1142,157 @@
 
             .right-actions .btn {
 
-                flex: 1;
+                width: 100%;
+            }
 
-                text-align: center;
+
+            .actions > .btn {
+
+                width: 100%;
+            }
+
+
+            .btn {
+
+                min-height:
+                    46px;
+            }
+
+        }
+
+
+        /* =========================================================
+           SMALL PHONES
+        ========================================================= */
+
+        @media (max-width: 480px) {
+
+            .sidebar {
+
+                padding:
+                    12px;
+            }
+
+
+            .brand h2 {
+
+                font-size:
+                    13px;
+            }
+
+
+            .brand p {
+
+                font-size:
+                    8px;
+            }
+
+
+            .navigation a {
+
+                padding:
+                    9px 10px;
+
+                font-size:
+                    10px;
             }
 
 
             .topbar {
 
-                padding: 0 20px;
+                align-items:
+                    flex-start;
+
+                flex-direction:
+                    column;
+
+                gap:
+                    6px;
             }
 
 
             .content {
 
-                padding: 30px 15px;
+                padding:
+                    16px 9px;
             }
 
 
             .page-title {
 
-                font-size: 27px;
+                font-size:
+                    22px;
+            }
+
+
+            .form-card {
+
+                padding:
+                    15px;
+
+                border-radius:
+                    15px;
+            }
+
+
+            .form-header {
+
+                padding-bottom:
+                    16px;
+
+                margin-bottom:
+                    20px;
+            }
+
+
+            input,
+            textarea,
+            select {
+
+                font-size:
+                    16px;
+            }
+
+        }
+
+
+        /* =========================================================
+           EXTRA SMALL PHONES
+        ========================================================= */
+
+        @media (max-width: 360px) {
+
+            .navigation {
+
+                gap:
+                    5px;
+            }
+
+
+            .navigation a {
+
+                padding:
+                    8px 9px;
+
+                font-size:
+                    9px;
+            }
+
+
+            .content {
+
+                padding-left:
+                    7px;
+
+                padding-right:
+                    7px;
+            }
+
+
+            .form-card {
+
+                padding:
+                    13px;
             }
 
         }
@@ -596,15 +1308,20 @@
 <div class="app">
 
 
-    <!-- SIDEBAR -->
+    <!-- =========================================================
+         SIDEBAR
+    ========================================================= -->
 
     <aside class="sidebar">
 
 
         <div class="brand">
 
+
             <div class="brand-icon">
+
                 ✓
+
             </div>
 
 
@@ -619,6 +1336,7 @@
                 </p>
 
             </div>
+
 
         </div>
 
@@ -680,9 +1398,9 @@
 
             Small steps every day lead to big results.
 
-            <br>
+            <br><br>
 
-            🌿
+            ✦
 
         </div>
 
@@ -691,7 +1409,9 @@
 
 
 
-    <!-- MAIN -->
+    <!-- =========================================================
+         MAIN
+    ========================================================= -->
 
     <main class="main">
 
@@ -719,7 +1439,9 @@
 
 
 
-        <!-- CONTENT -->
+        <!-- =====================================================
+             CONTENT
+        ===================================================== -->
 
         <section class="content">
 
@@ -746,7 +1468,9 @@
 
 
 
-            <!-- FORM CARD -->
+            <!-- =================================================
+                 FORM CARD
+            ================================================= -->
 
             <div class="form-card">
 
@@ -888,6 +1612,7 @@
                                 required
                             >
 
+
                                 <option
                                     value="Pending"
                                     {{ old('status', $task->status) == 'Pending' ? 'selected' : '' }}
@@ -906,6 +1631,7 @@
                                     Completed
 
                                 </option>
+
 
                             </select>
 
@@ -964,7 +1690,9 @@
 
 
 
-                    <!-- ACTIONS -->
+                    <!-- =================================================
+                         ACTIONS
+                    ================================================= -->
 
                     <div class="actions">
 
@@ -981,8 +1709,6 @@
 
                         <div class="right-actions">
 
-
-                            <!-- ONLY UPDATE BUTTON -->
 
                             <button
                                 type="submit"
